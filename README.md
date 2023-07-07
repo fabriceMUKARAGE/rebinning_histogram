@@ -33,6 +33,7 @@ rebinned_hist = rebin(h, new_bins=[[-7, -5, 0, 1]], reltol=0.1, abstol=None)
 In this example, a histogram h with 5 bins ranging from -5 to 5 is created. The rebin function is called with new bin edges specified as [-7, -5, 0, 1] and a relative tolerance of 0.1. The resulting rebinned histogram is stored in rebinned_hist.
 
 or
+
 h = Hist(hist.axis.Regular(5, -5, 5))
 
 rebinned_hist = rebin(h, new_bins=[[2,3], [1,2,3], [4,5]], reltol=0.001, abstol=0.001)
