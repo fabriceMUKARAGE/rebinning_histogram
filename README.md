@@ -41,7 +41,7 @@ rebinned_hist = rebin(h, new_bins=[[2,3], [1,2,3], [4,5]], reltol=0.001, abstol=
 # Test Cases
 The test_rebin function provides several test cases to validate the rebin function's behavior with different configurations of new bin edges, relative tolerance, and absolute tolerance. Each test case checks the correctness of the rebinned histogram by comparing the bin edges, shape, and sum of values with the expected values.
 
-I'm sure there may be better approach, and I'd appreciate any suggestions for improvements.
+I'm sure there may be a better approach, and I'd appreciate any suggestions for improvements or issues to solve in the code.
 
 
 
