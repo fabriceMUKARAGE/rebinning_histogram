@@ -2,6 +2,7 @@ import numpy as np
 import hist
 from hist import Hist
 
+
 # Function to rebin a histogram
 def rebin(histogram, new_bins=None, reltol=None, abstol=None):
     # Check if at least one parameter is provided for rebinning
