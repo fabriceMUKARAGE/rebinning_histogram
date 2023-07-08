@@ -65,9 +65,6 @@ def rebin(histogram, new_bins=None, reltol=None, abstol=None):
         *(hist.axis.Variable(new_axes_dict[axis.name]) if axis.name in new_axes_dict else axis for axis in histogram.axes)
     )
 
-    # Update the rebinned histogram with the rebinned counts
-    rebinned_hist.view(flow=True)[tuple(slices)] = rebinned_counts.ravel()
-
     return rebinned_hist
 
 # Function to test the rebin function
@@ -131,3 +128,28 @@ def test_rebin():
     assert len(rebinned_hist5.values().shape) == len(h.values().shape)
     assert rebinned_hist5.values().shape == rebinned_hist5.view().shape
     assert np.allclose(rebinned_hist5.values().sum(), h.values().sum())
+
+    
+    # 2D histogram test
+    h2d = Hist(
+        hist.axis.Regular(4, -5, 5),
+        hist.axis.Regular(4, 0, 4)
+    )
+    rebinned_hist2d = rebin(h2d, new_bins=[[-5, -4, 0, 1, 2], [0, 1, 2, 3, 4]], reltol=None, abstol=None)
+    assert len(rebinned_hist2d.axes) == len([[-5, -4, 0, 1, 2], [0, 1, 2, 3, 4]])
+    assert len(rebinned_hist2d.values().shape) == len(h2d.values().shape)
+    assert rebinned_hist2d.values().shape == rebinned_hist2d.view().shape
+    assert np.allclose(rebinned_hist2d.values().sum(), h2d.values().sum())
+
+
+    # 3D histogram test
+    h3d = Hist(
+        hist.axis.Regular(5, -5, 5),
+        hist.axis.Regular(4, 0, 4),
+        hist.axis.Regular(3, -3, 3)
+    )
+    rebinned_hist3d = rebin(h3d, new_bins=[[-5, -4, 0, 1], [0, 1, 2, 3, 4], [-3, -1, 0, 2, 3]], reltol=0.1, abstol=None)
+    assert len(rebinned_hist3d.axes) == len([[-5, -4, 0, 1], [0, 1, 2, 3, 4], [-3, -1, 0, 2, 3]])
+    assert len(rebinned_hist3d.values().shape) == len(h3d.values().shape)
+    assert rebinned_hist3d.values().shape == rebinned_hist3d.view().shape
+    assert np.allclose(rebinned_hist3d.values().sum(), h3d.values().sum()) 
